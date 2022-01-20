@@ -11,7 +11,7 @@ class RTKStatusWidget(MicrostrainWidget):
 
   def _configure(self):
     # Set up the subscriber status monitors
-    self._rtk_status_monitor = RTKMonitor(self._node, self._node_name, "rtk/status")
+    self._rtk_status_monitor = RTKMonitor(self._node, self._node_name, "rtk/status_v1")
 
     # Hide the warning label
     self.rtk_not_available_label.hide()

@@ -1,6 +1,6 @@
 from nav_msgs.msg import Odometry
 from sensor_msgs.msg import Imu, MagneticField, NavSatFix
-from microstrain_inertial_msgs.msg import GNSSAidingStatus, GNSSFixInfo, GNSSDualAntennaStatus, FilterStatus, RTKStatus, FilterAidingMeasurementSummary
+from microstrain_inertial_msgs.msg import GNSSAidingStatus, GNSSFixInfo, GNSSDualAntennaStatus, FilterStatus, RTKStatusV1, FilterAidingMeasurementSummary
 
 from .constants import _DEFAULT_VAL, _DEFAULT_STR
 from .constants import _UNIT_DEGREES, _UNIT_GS, _UNIT_GUASSIAN, _UNIT_METERS, _UNIT_RADIANS, _UNIT_METERS_PER_SEC, _UNIT_RADIANS_PER_SEC
@@ -605,7 +605,7 @@ class NavSatFixMonitor(SubscriberMonitor):
 class RTKMonitor(SubscriberMonitor):
 
   def __init__(self, node, node_name, topic_name):
-    super(RTKMonitor, self).__init__(node, node_name, topic_name, RTKStatus)
+    super(RTKMonitor, self).__init__(node, node_name, topic_name, RTKStatusV1)
 
   @property
   def gps_received(self):
