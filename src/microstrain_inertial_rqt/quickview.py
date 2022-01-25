@@ -90,6 +90,11 @@ class Quickview(qt_gui.plugin.Plugin):
     wrapper_widget.setWindowTitle('Quickview')
 
     context.add_widget(wrapper_widget)
+
+    # Update the font size if applicable
+    font = wrapper_widget.font()
+    font.setPointSize(11)
+    wrapper_widget.setFont(font)
     
   def shutdown_plugin(self):
     # Stop the update loops
