@@ -1,4 +1,3 @@
-from abc import ABC
 from nav_msgs.msg import Odometry
 from sensor_msgs.msg import Imu, MagneticField, NavSatFix
 from microstrain_inertial_msgs.msg import GNSSAidingStatus, GNSSFixInfo, GNSSDualAntennaStatus, FilterStatus, RTKStatusV1, RTKStatus, FilterAidingMeasurementSummary
@@ -603,7 +602,7 @@ class NavSatFixMonitor(SubscriberMonitor):
     return self._get_string_units(self.position_uncertainty, _UNIT_METERS)
 
 
-class RTKMonitorBase(ABC, SubscriberMonitor):
+class RTKMonitorBase(SubscriberMonitor):
 
   def __init__(self, node, node_name, topic_name, message_type):
     super(RTKMonitorBase, self).__init__(node, node_name, topic_name, message_type)

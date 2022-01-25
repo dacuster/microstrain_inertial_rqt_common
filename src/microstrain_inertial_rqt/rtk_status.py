@@ -1,5 +1,5 @@
 from .utils.widgets import MicrostrainWidget, MicrostrainPlugin
-from .utils.subscribers import RTKMonitorBase, RTKMonitor, RTKMonitorV1
+from .utils.subscribers import RTKMonitor, RTKMonitorV1
 
 _WIDGET_NAME = 'RTKStatus'
 
@@ -29,16 +29,18 @@ class RTKStatusWidget(MicrostrainWidget):
       self.rtk_widget.show()
 
     # Update device specific data
-    if self._rtk_status_monitor.version == 1:
-      self.rtk_v2_widget.show()
-      self.rtk_v1_widget.hide()
-
-      self._update_rtk_data_v2()
-    else:
+    # If v1 dongle is connected, _rtk_status_monitor.version will be 0 or None and _rtk_status_monitor_v1.version will be 0
+    if self._rtk_status_monitor.version != 1 and self._rtk_status_monitor_v1.version == 0:
       self.rtk_v1_widget.show()
       self.rtk_v2_widget.hide()
 
       self._update_rtk_data_v1()
+    # Default to v2
+    else:
+      self.rtk_v2_widget.show()
+      self.rtk_v1_widget.hide()
+
+      self._update_rtk_data_v2()
     
   def _update_rtk_data_v1(self):
     # V1 Status Flags
@@ -72,7 +74,7 @@ class RTKStatusWidget(MicrostrainWidget):
     # Update common flags
     self._update_rtk_data(self._rtk_status_monitor)
 
-  def _update_rtk_data(self, rtk_monitor: RTKMonitorBase):
+  def _update_rtk_data(self, rtk_monitor):
     # Epoch Status flags
     self.rtk_corrections_received_gps_label.setText(rtk_monitor.gps_received_string)
     self.rtk_corrections_received_glonass_label.setText(rtk_monitor.glonass_received_string)
